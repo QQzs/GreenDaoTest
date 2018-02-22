@@ -24,9 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void insert(View view){
-//        insertdata();
-
-        insertMoviedata();
+        insertdata();
     }
 
     public void delete(View view){
@@ -38,9 +36,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void query(View view){
-//        querydata();
-
-        queryMoviedata();
+        querydata();
     }
 
     private void getuserById() {

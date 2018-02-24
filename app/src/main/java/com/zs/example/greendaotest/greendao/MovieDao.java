@@ -13,7 +13,7 @@ import org.greenrobot.greendao.database.DatabaseStatement;
 /** 
  * DAO for table "MOVIE".
 */
-public class MovieDao extends AbstractDao<Movie, Long> {
+public class MovieDao extends AbstractDao<Movie, String> {
 
     public static final String TABLENAME = "MOVIE";
 
@@ -22,9 +22,8 @@ public class MovieDao extends AbstractDao<Movie, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Name = new Property(1, String.class, "name", false, "NAME");
-        public final static Property Year = new Property(2, int.class, "year", false, "YEAR");
+        public final static Property Name = new Property(0, String.class, "name", true, "NAME");
+        public final static Property Year = new Property(1, int.class, "year", false, "YEAR");
     }
 
 
@@ -40,9 +39,8 @@ public class MovieDao extends AbstractDao<Movie, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"MOVIE\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"NAME\" TEXT," + // 1: name
-                "\"YEAR\" INTEGER NOT NULL );"); // 2: year
+                "\"NAME\" TEXT PRIMARY KEY NOT NULL ," + // 0: name
+                "\"YEAR\" INTEGER NOT NULL );"); // 1: year
     }
 
     /** Drops the underlying database table. */
@@ -55,66 +53,53 @@ public class MovieDao extends AbstractDao<Movie, Long> {
     protected final void bindValues(DatabaseStatement stmt, Movie entity) {
         stmt.clearBindings();
  
-        Long id = entity.getId();
-        if (id != null) {
-            stmt.bindLong(1, id);
-        }
- 
         String name = entity.getName();
         if (name != null) {
-            stmt.bindString(2, name);
+            stmt.bindString(1, name);
         }
-        stmt.bindLong(3, entity.getYear());
+        stmt.bindLong(2, entity.getYear());
     }
 
     @Override
     protected final void bindValues(SQLiteStatement stmt, Movie entity) {
         stmt.clearBindings();
  
-        Long id = entity.getId();
-        if (id != null) {
-            stmt.bindLong(1, id);
-        }
- 
         String name = entity.getName();
         if (name != null) {
-            stmt.bindString(2, name);
+            stmt.bindString(1, name);
         }
-        stmt.bindLong(3, entity.getYear());
+        stmt.bindLong(2, entity.getYear());
     }
 
     @Override
-    public Long readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
+    public String readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0);
     }    
 
     @Override
     public Movie readEntity(Cursor cursor, int offset) {
         Movie entity = new Movie( //
-            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
-            cursor.getInt(offset + 2) // year
+            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // name
+            cursor.getInt(offset + 1) // year
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, Movie entity, int offset) {
-        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setYear(cursor.getInt(offset + 2));
+        entity.setName(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
+        entity.setYear(cursor.getInt(offset + 1));
      }
     
     @Override
-    protected final Long updateKeyAfterInsert(Movie entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
+    protected final String updateKeyAfterInsert(Movie entity, long rowId) {
+        return entity.getName();
     }
     
     @Override
-    public Long getKey(Movie entity) {
+    public String getKey(Movie entity) {
         if(entity != null) {
-            return entity.getId();
+            return entity.getName();
         } else {
             return null;
         }
@@ -122,7 +107,7 @@ public class MovieDao extends AbstractDao<Movie, Long> {
 
     @Override
     public boolean hasKey(Movie entity) {
-        return entity.getId() != null;
+        return entity.getName() != null;
     }
 
     @Override

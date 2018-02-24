@@ -24,7 +24,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void insert(View view){
-        insertdata();
+//        insertdata();
+        insertMoviedata();
+    }
+
+    public void save(View view){
+//        savedata();
+        saveMoviedata();
     }
 
     public void delete(View view){
@@ -36,20 +42,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void query(View view){
-        querydata();
+//        querydata();
+        queryMoviedata();
     }
 
     private void getuserById() {
         User user =getUserDao().load(1l);
-        Log.i("tag", "结果：" + user.getId() + "," + user.getName() + "," + user.getAge() + "," + user.getIsBoy() + ";");
+        Log.i("My_Log", "结果：" + user.getId() + "," + user.getName() + "," + user.getAge() + "," + user.getIsBoy() + ";");
 
 
     }
 
     private void insertdata() {
         //插入数据
-        User insertData = new User(null, "插入数据", 24, false);
-        getUserDao().insert(insertData);
+        User insertData = new User(1l, "插入数据", 24, false);
+        getUserDao().insertOrReplace(insertData);
+    }
+
+    private void savedata() {
+        //插入数据
+        User insertData = new User(2l, "插入数据", 24, false);
+        getUserDao().save(insertData);
     }
 
     private void updatadata() {
@@ -63,9 +76,9 @@ public class MainActivity extends AppCompatActivity {
     private void querydata() {
         //查询数据详细
         List<User> users = getUserDao().loadAll();
-        Log.i("tag", "当前数量：" + users.size());
+        Log.i("My_Log", "当前数量：" + users.size());
         for (int i = 0; i < users.size(); i++) {
-            Log.i("tag", "结果：" + users.get(i).getId() + "," + users.get(i).getName() + "," + users.get(i).getAge() + "," + users.get(i).getIsBoy() + ";");
+            Log.i("My_Log", "结果：" + users.get(i).getId() + "," + users.get(i).getName() + "," + users.get(i).getAge() + "," + users.get(i).getIsBoy() + ";");
         }
 
     }
@@ -76,9 +89,9 @@ public class MainActivity extends AppCompatActivity {
                 .orderAsc(UserDao.Properties.Age)//.limit(5)//orderDesc
                 .build();
         List<User> users = nQuery.list();
-        Log.i("tag", "当前数量：" + users.size());
+        Log.i("My_Log", "当前数量：" + users.size());
         for (int i = 0; i < users.size(); i++) {
-            Log.i("tag", "结果：" + users.get(i).getId() + "," + users.get(i).getName() + "," + users.get(i).getAge() + "," + users.get(i).getIsBoy() + ";");
+            Log.i("My_Log", "结果：" + users.get(i).getId() + "," + users.get(i).getName() + "," + users.get(i).getAge() + "," + users.get(i).getIsBoy() + ";");
         }
 
 //        QueryBuilder qb = userDao.queryBuilder();
@@ -145,16 +158,33 @@ public class MainActivity extends AppCompatActivity {
 
     private void insertMoviedata() {
         //插入数据
-        Movie movie = new Movie(null, "插入movie数据", 2018);
-        getMovieDao().insert(movie);
+        Movie movie = new Movie("你的名字", 2018);
+        long res = getMovieDao().insertOrReplace(movie);
+        Log.i("My_Log", "res = ：" + res);
+//        QueryBuilder qb = getMovieDao().queryBuilder();
+//        qb.where(MovieDao.Properties.Name.eq("你的名字2"));
+//        List dataList = qb.list();
+//        if (dataList != null && dataList.size() > 0){
+//            getMovieDao().update(movie);
+//            Log.i("My_Log", "update data");
+//        }else{
+//            getMovieDao().insert(movie);
+//            Log.i("My_Log", "insert data");
+//        }
+    }
+
+    private void saveMoviedata() {
+        //插入数据
+        Movie movie = new Movie("你的名字3", 201000);
+        getMovieDao().save(movie);
     }
 
     private void queryMoviedata() {
         //查询数据详细
         List<Movie> movies = getMovieDao().loadAll();
-        Log.i("tag", "当前数量：" + movies.size());
+        Log.i("My_Log", "当前数量：" + movies.size());
         for (int i = 0; i < movies.size(); i++) {
-            Log.i("tag", "结果：" + movies.get(i).getId() + "," + movies.get(i).getName() + "," + movies.get(i).getYear() + ";");
+            Log.i("My_Log", "结果：" + movies.get(i).getName() + "," + movies.get(i).getYear() + ";");
         }
 
     }

@@ -15,24 +15,16 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class Movie {
 
-    @Id(autoincrement = true)
-    private Long id;
+    @Id
     private String name;
     private int year;
-    @Generated(hash = 209751824)
-    public Movie(Long id, String name, int year) {
-        this.id = id;
+    @Generated(hash = 1431039700)
+    public Movie(String name, int year) {
         this.name = name;
         this.year = year;
     }
     @Generated(hash = 1263461133)
     public Movie() {
-    }
-    public Long getId() {
-        return this.id;
-    }
-    public void setId(Long id) {
-        this.id = id;
     }
     public String getName() {
         return this.name;
@@ -46,6 +38,5 @@ public class Movie {
     public void setYear(int year) {
         this.year = year;
     }
-
 
 }

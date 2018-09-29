@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.zs.example.greendaotest.greendao.GreenDaoManager;
-import com.zs.example.greendaotest.greendao.Movie;
 import com.zs.example.greendaotest.greendao.MovieDao;
 import com.zs.example.greendaotest.greendao.User;
 import com.zs.example.greendaotest.greendao.UserDao;
@@ -24,13 +23,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void insert(View view){
-//        insertdata();
-        insertMoviedata();
-    }
-
-    public void save(View view){
-//        savedata();
-        saveMoviedata();
+        insertdata();
     }
 
     public void delete(View view){
@@ -42,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void query(View view){
-//        querydata();
-        queryMoviedata();
+        querydata();
     }
 
     private void getuserById() {
@@ -55,14 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void insertdata() {
         //插入数据
-        User insertData = new User(1l, "插入数据", 24, false);
+        User insertData = new User(1l, "插入数据11111", 1111, false);
         getUserDao().insertOrReplace(insertData);
-    }
-
-    private void savedata() {
-        //插入数据
-        User insertData = new User(2l, "插入数据", 24, false);
-        getUserDao().save(insertData);
     }
 
     private void updatadata() {
@@ -155,40 +141,6 @@ public class MainActivity extends AppCompatActivity {
     public void deleteNote(User user){
         getUserDao().delete(user);
     }
-
-    private void insertMoviedata() {
-        //插入数据
-        Movie movie = new Movie("你的名字", 2018);
-        long res = getMovieDao().insertOrReplace(movie);
-        Log.i("My_Log", "res = ：" + res);
-//        QueryBuilder qb = getMovieDao().queryBuilder();
-//        qb.where(MovieDao.Properties.Name.eq("你的名字2"));
-//        List dataList = qb.list();
-//        if (dataList != null && dataList.size() > 0){
-//            getMovieDao().update(movie);
-//            Log.i("My_Log", "update data");
-//        }else{
-//            getMovieDao().insert(movie);
-//            Log.i("My_Log", "insert data");
-//        }
-    }
-
-    private void saveMoviedata() {
-        //插入数据
-        Movie movie = new Movie("你的名字3", 201000);
-        getMovieDao().save(movie);
-    }
-
-    private void queryMoviedata() {
-        //查询数据详细
-        List<Movie> movies = getMovieDao().loadAll();
-        Log.i("My_Log", "当前数量：" + movies.size());
-        for (int i = 0; i < movies.size(); i++) {
-            Log.i("My_Log", "结果：" + movies.get(i).getName() + "," + movies.get(i).getYear() + ";");
-        }
-
-    }
-
 
     private UserDao getUserDao() {
         return GreenDaoManager.getInstance().getSession().getUserDao();

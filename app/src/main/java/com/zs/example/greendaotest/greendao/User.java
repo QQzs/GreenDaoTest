@@ -19,13 +19,23 @@ public class User {
     private String name;
     private int age;
     private boolean isBoy;
-    @Generated(hash = 1724489812)
+    private String content;
+    @Generated(hash = 446401216)
+    public User(Long id, String name, int age, boolean isBoy, String content) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.isBoy = isBoy;
+        this.content = content;
+    }
+
     public User(Long id, String name, int age, boolean isBoy) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.isBoy = isBoy;
     }
+
     @Generated(hash = 586692638)
     public User() {
     }
@@ -53,4 +63,11 @@ public class User {
     public void setIsBoy(boolean isBoy) {
         this.isBoy = isBoy;
     }
+    public String getContent() {
+        return this.content;
+    }
+    public void setContent(String content) {
+        this.content = content;
+    }
+    
 }

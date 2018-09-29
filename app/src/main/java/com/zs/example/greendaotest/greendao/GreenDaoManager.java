@@ -19,9 +19,13 @@ public class GreenDaoManager {
 
     private GreenDaoManager(){
         if (mInstance == null) {
-            DaoMaster.DevOpenHelper devOpenHelper = new
-                    DaoMaster.DevOpenHelper(MyApplication.getContext(), "user-db", null);//此处为自己需要处理的表
-            mDaoMaster = new DaoMaster(devOpenHelper.getWritableDatabase());
+//            DaoMaster.DevOpenHelper devOpenHelper = new
+//                    DaoMaster.DevOpenHelper(MyApplication.getContext(), "user_data.db", null);//此处为自己需要处理的表
+//            mDaoMaster = new DaoMaster(devOpenHelper.getWritableDatabase());
+//            mDaoSession = mDaoMaster.newSession();
+
+            SQLiteHelper SQLiteHelper = new SQLiteHelper(MyApplication.getContext());
+            mDaoMaster = new DaoMaster(SQLiteHelper.getWritableDatabase());
             mDaoSession = mDaoMaster.newSession();
         }
     }

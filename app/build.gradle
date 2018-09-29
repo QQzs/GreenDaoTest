@@ -19,7 +19,7 @@ android {
     }
 
     greendao{
-        schemaVersion 1
+        schemaVersion 2
         daoPackage 'com.zs.example.greendaotest.greendao'
         targetGenDir 'src/main/java'
     }
@@ -35,4 +35,5 @@ dependencies {
 
     compile 'org.greenrobot:greendao:3.2.0'
     compile 'org.greenrobot:greendao-generator:3.2.0'
+    compile 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v2.1.0'
 }

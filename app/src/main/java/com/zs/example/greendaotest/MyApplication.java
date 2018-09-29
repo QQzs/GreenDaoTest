@@ -23,6 +23,7 @@ public class MyApplication extends Application {
         mContext = getApplicationContext();
         //greenDao全局配置,只希望有一个数据库操作对象
         GreenDaoManager.getInstance();
+
     }
     public static Context getContext() {
         return mContext;

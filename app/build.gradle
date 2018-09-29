@@ -19,7 +19,7 @@ android {
     }
 
     greendao{
-        schemaVersion 2
+        schemaVersion 4
         daoPackage 'com.zs.example.greendaotest.greendao'
         targetGenDir 'src/main/java'
     }

@@ -7,6 +7,8 @@ import android.view.View;
 
 import com.zs.example.greendaotest.greendao.GreenDaoManager;
 import com.zs.example.greendaotest.greendao.MovieDao;
+import com.zs.example.greendaotest.greendao.School;
+import com.zs.example.greendaotest.greendao.SchoolDao;
 import com.zs.example.greendaotest.greendao.User;
 import com.zs.example.greendaotest.greendao.UserDao;
 
@@ -23,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void insert(View view){
-        insertdata();
+//        insertdata();
+        insertSchool();
     }
 
     public void delete(View view){
@@ -35,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void query(View view){
-        querydata();
+//        querydata();
+        querySchool();
     }
 
     private void getuserById() {
@@ -45,9 +49,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void insertSchool() {
+        //插入数据
+        School school = new School("十六中","20","1000");
+        getSchoolDao().insertOrReplace(school);
+    }
+
+    private void querySchool() {
+        //查询数据详细
+        List<School> schools = getSchoolDao().loadAll();
+        Log.i("My_Log", "当前数量：" + schools.size());
+        for (int i = 0; i < schools.size(); i++) {
+            Log.i("My_Log", "结果：" + schools.get(i).getName() + "," + schools.get(i).getName() + "," + schools.get(i).getLoction());
+        }
+
+    }
+
     private void insertdata() {
         //插入数据
-        User insertData = new User(1l, "插入数据11111", 1111, false);
+        User insertData = new User(3l, "插入数据333", 333, true);
         getUserDao().insertOrReplace(insertData);
     }
 
@@ -148,6 +168,10 @@ public class MainActivity extends AppCompatActivity {
 
     private MovieDao getMovieDao(){
         return GreenDaoManager.getInstance().getSession().getMovieDao();
+    }
+
+    private SchoolDao getSchoolDao(){
+        return GreenDaoManager.getInstance().getSession().getSchoolDao();
     }
 
 
